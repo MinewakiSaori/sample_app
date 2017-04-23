@@ -1,10 +1,9 @@
 SampleApp::Application.routes.draw do
-  
-  get "users/show"
   devise_for :users, :controllers => {
     :registrations => "registrations"
   }
-  resources :users, only: [:show, :index, :destroy]do
+  resources :users, only: [:show, :index]
+  root  'static_pages#home'
     member do
       get :following, :followers
     end
@@ -71,4 +70,3 @@ SampleApp::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
