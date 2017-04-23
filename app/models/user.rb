@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates :name,  presence: true, length: { maximum: 50 }
 
   def feed
-    Micropost.from_users_followed_by(self)
+    Micropost.where("user_id = ?", id)
   end
   
   def following?(other_user)
