@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :relationships, foreign_key: "followed_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+  
+  validates :name,  presence: true, length: { maximum: 50 }
+  
   has_many :reverse_relationships, foreign_key: "followed_id",
                                    class_name:  "Relationship",
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
-  
-  validates :name,  presence: true, length: { maximum: 50 }
 
   def feed
     Micropost.where("user_id = ?", id)
