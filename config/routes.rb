@@ -2,7 +2,7 @@ SampleApp::Application.routes.draw do
   devise_for :users, :controllers => {
     :registrations => "registrations"
   }
-  resources :users, only: [:show, :index, :destory]
+  resources :users, only: [:show, :index, :destory] do
   root  'static_pages#home'
     member do
       get :following, :followers
